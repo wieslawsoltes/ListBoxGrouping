@@ -29,10 +29,15 @@ namespace ListBoxGrouping.ViewModels
 
             var totalGroups = 1_000;
             var i = 0;
+            var minItems = 3;
+            var maxItems = 10;
+            var rand = new Random();
 
             for (var year = 0; year < totalGroups; year++)
             {
-                for (var j = 0; j < 3; j++)
+                var totalItems = rand.Next(minItems, maxItems);
+
+                for (var j = 0; j < totalItems; j++)
                 {
                     _items.Add(new() { Name = $"Test {i++}", Year = year });
                 }

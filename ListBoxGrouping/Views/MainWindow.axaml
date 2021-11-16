@@ -26,17 +26,17 @@
       <DataTemplate DataType="vm:ItemViewModel">
         <TextBlock Text="{Binding Name}" />
       </DataTemplate>
-      <DataTemplate>
-        <Expander IsExpanded="True">
+      <DataTemplate DataType="vm:GroupingViewModel">
+        <Expander IsExpanded="{Binding IsExpanded}">
           <Expander.Styles>
             <Style Selector="Expander">
               <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             </Style>
           </Expander.Styles>
           <Expander.Header>
-            <TextBlock Text="{Binding Key}" />
+            <TextBlock Text="{Binding Grouping.Key, FallbackValue={x:Null}}" />
           </Expander.Header>
-          <ListBox Items="{Binding}" >
+          <ListBox Items="{Binding Grouping}">
             <ListBox.Styles>
               <Style Selector="ListBoxItem">
                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />

@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using ReactiveUI;
 
@@ -7,7 +9,7 @@ namespace ListBoxGrouping.ViewModels
     public class MainWindowViewModel : ViewModelBase
     {
         private ObservableCollection<ItemViewModel>? _items;
-        private ObservableCollection<IGrouping<int, ItemViewModel>>? _groupedItems;
+        private ObservableCollection<GroupingViewModel>? _groupedItems;
 
         public ObservableCollection<ItemViewModel>? Items
         {
@@ -15,7 +17,7 @@ namespace ListBoxGrouping.ViewModels
             set => this.RaiseAndSetIfChanged(ref _items, value);
         }
 
-        public ObservableCollection<IGrouping<int, ItemViewModel>>? GroupedItems
+        public ObservableCollection<GroupingViewModel>? GroupedItems
         {
             get => _groupedItems;
             set => this.RaiseAndSetIfChanged(ref _groupedItems, value);
@@ -36,7 +38,13 @@ namespace ListBoxGrouping.ViewModels
                 }
             }
 
-            _groupedItems = new ObservableCollection<IGrouping<int, ItemViewModel>>(_items.GroupBy(x => x.Year));
+            _groupedItems = new ObservableCollection<GroupingViewModel>(
+                _items.GroupBy(x => x.Year)
+                    .Select(x => new GroupingViewModel() 
+                    {
+                        IsExpanded = true,
+                        Grouping = x
+                    }));
         }
     }
 }

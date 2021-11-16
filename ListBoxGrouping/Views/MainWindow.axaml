@@ -28,6 +28,11 @@
       </DataTemplate>
       <DataTemplate>
         <Expander IsExpanded="True">
+          <Expander.Styles>
+            <Style Selector="Expander">
+              <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            </Style>
+          </Expander.Styles>
           <Expander.Header>
             <TextBlock Text="{Binding Key}" />
           </Expander.Header>

@@ -52,7 +52,7 @@
        </ListBox.DataTemplates>
      </ListBox> 
     </TabItem>
-    
+
     <TabItem Header="ItemsRepeater">
       <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <ItemsRepeater Items="{Binding GroupedItems}" Margin="18">

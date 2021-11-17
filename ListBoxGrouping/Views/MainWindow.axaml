@@ -14,39 +14,81 @@
     <vm:MainWindowViewModel />
   </Design.DataContext>
 
-  <ListBox Items="{Binding GroupedItems}">
-    <ListBox.Styles>
-      <Style Selector="ListBoxItem">
-        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-      </Style>
-      <Style Selector="Expander">
-        <Setter Property="HorizontalAlignment" Value="Stretch" />
-      </Style>
-    </ListBox.Styles>
-    <ListBox.DataTemplates>
-      <DataTemplate DataType="vm:ItemViewModel">
-        <TextBlock Text="{Binding Name}" />
-      </DataTemplate>
-      <DataTemplate DataType="vm:GroupingViewModel">
-        <Expander IsExpanded="{Binding IsExpanded}">
-          <Expander.Styles>
-            <Style Selector="Expander">
-              <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-            </Style>
-          </Expander.Styles>
-          <Expander.Header>
-            <TextBlock Text="{Binding Grouping.Key, FallbackValue={x:Null}}" />
-          </Expander.Header>
-          <ListBox Items="{Binding Grouping}">
-            <ListBox.Styles>
-              <Style Selector="ListBoxItem">
-                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-              </Style>
-            </ListBox.Styles>
-          </ListBox>
-        </Expander>
-      </DataTemplate>
-    </ListBox.DataTemplates>
-  </ListBox>
+  <TabControl>
+
+    <TabItem Header="ListBox">
+     <ListBox Items="{Binding GroupedItems}">
+       <ListBox.Styles>
+         <Style Selector="ListBoxItem">
+           <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+         </Style>
+         <Style Selector="Expander">
+           <Setter Property="HorizontalAlignment" Value="Stretch" />
+         </Style>
+       </ListBox.Styles>
+       <ListBox.DataTemplates>
+         <DataTemplate DataType="vm:ItemViewModel">
+           <TextBlock Text="{Binding Name}" />
+         </DataTemplate>
+         <DataTemplate DataType="vm:GroupingViewModel">
+           <Expander IsExpanded="{Binding IsExpanded}">
+             <Expander.Styles>
+               <Style Selector="Expander">
+                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+               </Style>
+             </Expander.Styles>
+             <Expander.Header>
+               <TextBlock Text="{Binding Grouping.Key, FallbackValue={x:Null}}" />
+             </Expander.Header>
+             <ListBox Items="{Binding Grouping}">
+               <ListBox.Styles>
+                 <Style Selector="ListBoxItem">
+                   <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                 </Style>
+               </ListBox.Styles>
+             </ListBox>
+           </Expander>
+         </DataTemplate>
+       </ListBox.DataTemplates>
+     </ListBox> 
+    </TabItem>
+    
+    <TabItem Header="ItemsRepeater">
+      <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <ItemsRepeater Items="{Binding GroupedItems}" Margin="18">
+          <ItemsRepeater.Layout>
+            <StackLayout Orientation="Vertical" Spacing="18" />
+          </ItemsRepeater.Layout>
+          <ItemsRepeater.ItemTemplate>
+            <DataTemplate DataType="vm:GroupingViewModel">
+              <Expander IsExpanded="{Binding IsExpanded}">
+                <Expander.Styles>
+                  <Style Selector="Expander">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    <Setter Property="HorizontalAlignment" Value="Stretch" />
+                  </Style>
+                </Expander.Styles>
+                <Expander.Header>
+                  <TextBlock Text="{Binding Grouping.Key, FallbackValue={x:Null}}" />
+                </Expander.Header>
+                <ListBox Items="{Binding Grouping}">
+                  <ListBox.Styles>
+                    <Style Selector="ListBoxItem">
+                      <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                  </ListBox.Styles>
+                  <ListBox.DataTemplates>
+                    <DataTemplate DataType="vm:ItemViewModel">
+                      <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                  </ListBox.DataTemplates>
+                </ListBox>
+              </Expander>
+            </DataTemplate>
+          </ItemsRepeater.ItemTemplate>
+        </ItemsRepeater>
+      </ScrollViewer>
+    </TabItem>
+  </TabControl>
 
 </Window>

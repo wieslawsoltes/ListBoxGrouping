@@ -14,39 +14,97 @@
     <vm:MainWindowViewModel />
   </Design.DataContext>
 
-  <ListBox Items="{Binding GroupedItems}">
-    <ListBox.Styles>
-      <Style Selector="ListBoxItem">
-        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-      </Style>
-      <Style Selector="Expander">
-        <Setter Property="HorizontalAlignment" Value="Stretch" />
-      </Style>
-    </ListBox.Styles>
-    <ListBox.DataTemplates>
-      <DataTemplate DataType="vm:ItemViewModel">
-        <TextBlock Text="{Binding Name}" />
-      </DataTemplate>
-      <DataTemplate DataType="vm:GroupingViewModel">
-        <Expander IsExpanded="{Binding IsExpanded}">
-          <Expander.Styles>
-            <Style Selector="Expander">
-              <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-            </Style>
-          </Expander.Styles>
-          <Expander.Header>
-            <TextBlock Text="{Binding Grouping.Key, FallbackValue={x:Null}}" />
-          </Expander.Header>
-          <ListBox Items="{Binding Grouping}">
-            <ListBox.Styles>
-              <Style Selector="ListBoxItem">
+  <ScrollViewer VerticalScrollBarVisibility="Auto">
+
+    <ItemsRepeater ItemsSource="{Binding GroupedItems}">
+      
+      <ItemsRepeater.Styles>
+        <Style Selector="ListBoxItem">
+          <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        </Style>
+        <Style Selector="Expander">
+          <Setter Property="HorizontalAlignment" Value="Stretch" />
+        </Style>
+      </ItemsRepeater.Styles>
+      
+      <ItemsRepeater.ItemTemplate>
+        
+        <DataTemplate DataType="vm:GroupingViewModel">
+          <Expander IsExpanded="{Binding IsExpanded}">
+            <Expander.Styles>
+              <Style Selector="Expander">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderBrush" Value="Transparent" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Padding" Value="0" />
+              </Style>
+            </Expander.Styles>
+            <Expander.Header>
+              <Button Content="{Binding Grouping.Key, FallbackValue={x:Null}}"
+                      Background="Transparent"
+                      HorizontalAlignment="Stretch"
+                      HorizontalContentAlignment="Left"
+                      Margin="4"/>
+            </Expander.Header>
+            
+            <ItemsRepeater ItemsSource="{Binding Grouping}">
+              <ItemsRepeater.Styles>
+                <Style Selector="ListBoxItem">
+                  <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+              </ItemsRepeater.Styles>
+              
+              <ItemsRepeater.ItemTemplate>
+                <DataTemplate DataType="vm:ItemViewModel">
+                  <Button Content="{Binding Name}"
+                          Background="Transparent"
+                          HorizontalAlignment="Stretch"
+                          HorizontalContentAlignment="Left"
+                          Margin="4"/>
+                </DataTemplate>
+              </ItemsRepeater.ItemTemplate>
+              
+              
+            </ItemsRepeater>
+            
+          </Expander>
+        </DataTemplate>
+        
+      </ItemsRepeater.ItemTemplate>
+      
+      <!--
+      <ItemsRepeater.DataTemplates>
+
+        <DataTemplate DataType="vm:GroupingViewModel">
+          <Expander IsExpanded="{Binding IsExpanded}">
+            <Expander.Styles>
+              <Style Selector="Expander">
                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
               </Style>
-            </ListBox.Styles>
-          </ListBox>
-        </Expander>
-      </DataTemplate>
-    </ListBox.DataTemplates>
-  </ListBox> 
+            </Expander.Styles>
+            <Expander.Header>
+              <TextBlock Text="{Binding Grouping.Key, FallbackValue={x:Null}}" />
+            </Expander.Header>
+            <ItemsRepeater ItemsSource="{Binding Grouping}">
+              <ItemsRepeater.Styles>
+                <Style Selector="ListBoxItem">
+                  <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+              </ItemsRepeater.Styles>
+            </ItemsRepeater>
+          </Expander>
+        </DataTemplate>
+
+        <DataTemplate DataType="vm:ItemViewModel">
+          <TextBlock Text="{Binding Name}" />
+        </DataTemplate>
+
+      </ItemsRepeater.DataTemplates>
+      -->
+    </ItemsRepeater> 
+      
+  </ScrollViewer>
 
 </Window>
